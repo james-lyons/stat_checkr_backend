@@ -2,13 +2,13 @@
   "name": "stat_checkr_backend",
   "version": "1.0.0",
   "description": "Server for stat_checkr project",
+  "author": "JRL",
+  "license": "ISC",
   "main": "server.js",
   "scripts": {
     "test": "jest",
     "start": "nodemon server"
   },
-  "author": "JRL",
-  "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
