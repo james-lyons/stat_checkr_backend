@@ -8,9 +8,11 @@ const validateUser = require('../middleware/validateUser');
 // ---------------------------------- Controllers ---------------------------------- //
 
 const register = (req, res) => {
-   console.log('Logging Register Req:', req);
+   console.log('Logging Register Req:', req.body);
    const { errors, notValid } = validateUser(req.body);
-   const { name, email } = req.body;
+   const { name, email, profile_pic } = req.body;
+
+   console.log('Hi from register 1', req.body);
 
    if (notValid) {
       return res.status(400).json({
@@ -28,6 +30,8 @@ const register = (req, res) => {
             error: findUserError,
          });
 
+      console.log('Hi from register 2');
+
       if (foundUser)
          return res.status(400).json({
             status: 400,
@@ -43,6 +47,8 @@ const register = (req, res) => {
                error: genSaltError,
             });
 
+         console.log('Hi from register 3');
+
          bcrypt.hash(req.body.password, salt, (hashPasswordError, hash) => {
             if (hashPasswordError)
                return res.status(500).json({
@@ -54,9 +60,12 @@ const register = (req, res) => {
             const newUser = {
                name,
                email,
+               profile_pic,
                password: hash,
                password2: hash,
             };
+
+            console.log('Hi from register 4: NEW USER', newUser);
 
             db.User.create(newUser, (createUserError, createdUser) => {
                if (createUserError)
@@ -65,6 +74,8 @@ const register = (req, res) => {
                      message: 'Something went wrong, please try again.',
                      error: createUserError,
                   });
+
+               console.log('Hi from register 5');
 
                return res.status(201).json({
                   status: 201,
@@ -129,11 +140,17 @@ const login = (req, res) => {
                         saveSessionError
                      );
                   }
+                  const user = {
+                     _id: foundUser._id,
+                     name: foundUser.name,
+                     email: foundUser.email,
+                     // profile_pic: foundUser.profile_pic,
+                  };
 
                   return res.status(200).json({
                      status: 200,
                      message: 'Successfully logged in.',
-                     data: foundUser,
+                     data: user,
                   });
                });
             } else {

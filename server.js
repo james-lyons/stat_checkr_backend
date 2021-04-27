@@ -32,7 +32,7 @@ app.use(
 );
 
 const corsOptions = {
-   origin: 'http:localhost:4000',
+   origin: 'http://localhost:8080',
    methods: ['GET', 'PUT', 'POST', 'HEAD', 'DELETE', 'OPTIONS'],
    headers: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept'],
    credentials: true,
@@ -40,7 +40,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-app.options('http:localhost:4000', cors());
+app.options('http://localhost:4000', cors());
 
 // ------------------------------------- Routes ------------------------------------ //
 

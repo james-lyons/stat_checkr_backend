@@ -1,4 +1,4 @@
-module.exports = ({ name, email, password, password2 }) => {
+module.exports = ({ name, email, profile_pic, password, password2 }) => {
    const errors = [];
 
    if (!name) {
@@ -7,6 +7,10 @@ module.exports = ({ name, email, password, password2 }) => {
 
    if (!email) {
       errors.push({ message: 'Please enter your email' });
+   }
+
+   if (!profile_pic) {
+      errors.push({ message: 'Please enter a profile picture' });
    }
 
    if (!password) {
